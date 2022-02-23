@@ -2,6 +2,7 @@ package com.example.perludilindungi.adapter
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ColorSpace
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,18 +15,19 @@ import java.time.format.DateTimeFormatter
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import java.io.InputStream
 import java.net.URL
 import java.util.concurrent.Executors
 
 
-class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
-    var news = mutableListOf<News>()
+class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
+    var newsList = mutableListOf<News>()
 
     class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     fun setNewsList(newsData: NewsResponse) {
-        this.news = newsData.results.toMutableList()
+        this.newsList = newsData.results.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -36,10 +38,10 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         return NewsViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = news.size
+    override fun getItemCount(): Int = newsList.size
 
     override fun onBindViewHolder(holder: NewsViewHolder, pos: Int) {
-        val newsData = news[pos]
+        val newsData = newsList[pos]
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
         var image: Bitmap?
@@ -64,4 +66,10 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         holder.binding.newsTitle.text = newsData.title
         holder.binding.newsDate.text = newsData.pubDate.take(16)
     }
+
+}
+
+interface NewsClickListener {
+    fun onItemClicked(newsData: News)
+
 }
