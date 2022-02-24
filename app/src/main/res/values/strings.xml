@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Perlu Dilindungi</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="newsHeadline">News Covid-19</string>
 </resources>

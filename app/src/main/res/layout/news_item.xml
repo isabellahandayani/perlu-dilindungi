@@ -6,7 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    tools:src=".NewsActivity"
+    android:id="@+id/news_card">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +21,7 @@
             android:layout_width="38dp"
             android:layout_height="117dp"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bella" />
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="130dp"
@@ -32,14 +33,12 @@
             <TextView
                 android:id="@+id/news_title"
                 android:layout_width="match_parent"
-                android:layout_height="99dp"
-                android:text="TextView" />
+                android:layout_height="99dp" />
 
             <TextView
                 android:id="@+id/news_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

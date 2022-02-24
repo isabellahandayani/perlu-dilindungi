@@ -1,5 +1,6 @@
 package com.example.perludilindungi.adapter
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ColorSpace
@@ -13,9 +14,11 @@ import java.text.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.core.content.ContextCompat.startActivity
 import java.io.InputStream
 import java.net.URL
 import java.util.concurrent.Executors
@@ -23,11 +26,27 @@ import java.util.concurrent.Executors
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
     var newsList = mutableListOf<News>()
+    private lateinit var newsListener: onItemClickListener
 
-    class NewsViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root)
+    interface onItemClickListener {
+        fun onItemClick(pos: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        newsListener = listener
+    }
+
+    class NewsViewHolder(val binding: NewsItemBinding, listener: onItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.newsCard.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+    }
 
     fun setNewsList(newsData: NewsResponse) {
         this.newsList = newsData.results.toMutableList()
+
         notifyDataSetChanged()
     }
 
@@ -35,7 +54,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
         val inflater = LayoutInflater.from(parent.context)
 
         val binding = NewsItemBinding.inflate(inflater, parent, false)
-        return NewsViewHolder(binding)
+        return NewsViewHolder(binding, newsListener)
     }
 
     override fun getItemCount(): Int = newsList.size
@@ -66,10 +85,5 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(){
         holder.binding.newsTitle.text = newsData.title
         holder.binding.newsDate.text = newsData.pubDate.take(16)
     }
-
-}
-
-interface NewsClickListener {
-    fun onItemClicked(newsData: News)
 
 }

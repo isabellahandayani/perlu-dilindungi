@@ -1,10 +1,13 @@
-package com.example.perludilindungi
+package com.example.perludilindungi.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.perludilindungi.MainViewModel
+import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.adapter.NewsAdapter
 import com.example.perludilindungi.databinding.NewsBinding
 import com.example.perludilindungi.network.RetrofitService
@@ -29,6 +32,15 @@ class NewsActivity : AppCompatActivity() {
         ).get(MainViewModel::class.java)
 
         binding.news.adapter = adapter
+        adapter.setOnItemClickListener(object: NewsAdapter.onItemClickListener{
+            override fun onItemClick(pos: Int) {
+                intent = Intent(this@NewsActivity, NewsDetails::class.java)
+                intent.putExtra("url", adapter.newsList[pos].guid)
+
+                startActivity(intent)
+            }
+
+        })
 
         viewModel.list.observe(this, Observer { response ->
             Log.d("NEWS", "onCreate: $response")
