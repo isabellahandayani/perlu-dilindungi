@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PerluDilindungi</string>
+    <string name="app_name">Perlu Dilindungi</string>
+    <string name="newsHeadline">News Covid-19</string>
 </resources>
