@@ -1,4 +1,4 @@
-package com.example.perludilindungi.ui
+package com.example.perludilindungi.ui.news
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +29,7 @@ class NewsActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(Repository(retrofitService))
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
 
         binding.news.adapter = adapter
         adapter.setOnItemClickListener(object: NewsAdapter.onItemClickListener{

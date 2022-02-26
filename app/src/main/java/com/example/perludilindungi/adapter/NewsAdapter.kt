@@ -1,25 +1,15 @@
 package com.example.perludilindungi.adapter
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.ColorSpace
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.perludilindungi.News
-import com.example.perludilindungi.NewsResponse
+import com.example.perludilindungi.model.News
+import com.example.perludilindungi.model.NewsResponse
 import com.example.perludilindungi.databinding.NewsItemBinding
-import java.text.DateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.view.View
-import androidx.core.content.ContextCompat.startActivity
-import java.io.InputStream
 import java.net.URL
 import java.util.concurrent.Executors
 

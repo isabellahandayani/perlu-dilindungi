@@ -1,25 +1,27 @@
 package com.example.perludilindungi.network
 
-import com.example.perludilindungi.NewsResponse
+import com.example.perludilindungi.model.NewsResponse
+import com.example.perludilindungi.model.FaskesResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("get-news")
+    @GET("api/get-news")
     fun getNews() : Call<NewsResponse>
 
+    @GET("api/get-faskes-vaksinasi")
+    fun getFaskes(@Query("province")  province: String, @Query("city") city: String ) : Call<FaskesResponse>
+
     companion object {
-
         var retrofitService: RetrofitService? = null
-
         fun getInstance() : RetrofitService {
-
             if (retrofitService == null) {
                 val retrofit = Retrofit.Builder()
-                    .baseUrl("https://perludilindungi.herokuapp.com/api/")
+                    .baseUrl("https://perludilindungi.herokuapp.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                 retrofitService = retrofit.create(RetrofitService::class.java)

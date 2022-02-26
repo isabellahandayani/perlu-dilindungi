@@ -1,4 +1,4 @@
-package com.example.perludilindungi
+package com.example.perludilindungi.model
 
 data class NewsResponse(
     val count_total: Int,
