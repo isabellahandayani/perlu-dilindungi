@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.perludilindungi.databinding.FragmentFaskesItemBinding
-import com.example.perludilindungi.databinding.NewsItemBinding
 import com.example.perludilindungi.model.Faskes
 
 class FaskesAdapter(

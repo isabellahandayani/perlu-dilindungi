@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.perludilindungi.adapter.FaskesAdapter
 import com.example.perludilindungi.databinding.FragmentFaskesListBinding
 import com.example.perludilindungi.model.Faskes
-import com.example.perludilindungi.model.FaskesResponse
 
 /**
  * A fragment representing a list of Items.
@@ -22,10 +21,9 @@ class FaskesFragment : Fragment() {
     companion object {
         var faskesData: List<Faskes>? = null
 
-
-        fun newInstance(dataset: FaskesResponse) : FaskesFragment {
+        fun newInstance(dataset: List<Faskes>) : FaskesFragment {
             val faskesFragment = FaskesFragment()
-            faskesData = dataset.data
+            faskesData = dataset
             return faskesFragment
         }
 

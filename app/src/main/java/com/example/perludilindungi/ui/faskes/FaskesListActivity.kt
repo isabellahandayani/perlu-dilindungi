@@ -12,6 +12,7 @@ import com.example.perludilindungi.R
 import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.databinding.FaskesListBinding
 import com.example.perludilindungi.databinding.NewsBinding
+import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.model.FaskesResponse
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
@@ -36,7 +37,7 @@ class FaskesListActivity: AppCompatActivity() {
         viewModel.faskesList.observe(this,  { response ->
             Log.d("FASKES", "onCreate: $response")
             if(response != null) {
-                initFragment(response)
+                initFragment(response.data)
             } else {
                 Toast.makeText(this@FaskesListActivity, "Province or city not found", Toast.LENGTH_SHORT)
             }
@@ -49,7 +50,7 @@ class FaskesListActivity: AppCompatActivity() {
         viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
     }
 
-    private fun initFragment(faskesList: FaskesResponse) {
+    private fun initFragment(faskesList: List<Faskes>) {
         faskesFragment = FaskesFragment.newInstance(faskesList)
 
         supportFragmentManager
