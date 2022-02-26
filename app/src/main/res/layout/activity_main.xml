@@ -8,16 +8,21 @@
 
     <Button
         android:id="@+id/news_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="203dp"
-        android:layout_marginBottom="480dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="news_button"
+        app:layout_constraintBottom_toTopOf="@+id/search_faskes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/search_faskes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="260dp"
+        android:text="search_faskes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

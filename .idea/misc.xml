@@ -4,7 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout-land/faskes_list.xml" value="0.4" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/bookmark_list.xml" value="0.103125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/faskes_fragment.xml" value="0.11503623188405797" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/faskes_item.xml" value="0.11503623188405797" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/faskes_list.xml" value="0.1" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/fragment_faskes.xml" value="0.13125" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/fragment_faskes_item.xml" value="0.264" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/fragment_faskes_list.xml" value="0.1171875" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/fragment_news.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/news.xml" value="0.31791530944625407" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/if3210-2022-android-36/app/src/main/res/layout/news_item.xml" value="0.37349397590361444" />

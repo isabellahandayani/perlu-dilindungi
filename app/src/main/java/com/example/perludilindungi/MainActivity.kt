@@ -4,7 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.perludilindungi.databinding.ActivityMainBinding
-import com.example.perludilindungi.ui.NewsActivity
+import com.example.perludilindungi.ui.faskes.FaskesListActivity
+import com.example.perludilindungi.ui.news.NewsActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,11 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.newsButton.setOnClickListener { launchNews() }
-    }
+        binding.newsButton.setOnClickListener {
+            listIntent = Intent(this, NewsActivity::class.java)
+            startActivity(listIntent)
+        }
 
-    private fun launchNews() {
-        listIntent = Intent(this, NewsActivity::class.java)
-        startActivity(listIntent)
+        binding.searchFaskes.setOnClickListener{
+            listIntent = Intent(this, FaskesListActivity::class.java)
+            startActivity(listIntent)
+        }
+
     }
 }

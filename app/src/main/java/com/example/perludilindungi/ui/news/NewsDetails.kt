@@ -1,4 +1,4 @@
-package com.example.perludilindungi.ui
+package com.example.perludilindungi.ui.news
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,7 @@ class NewsDetails : AppCompatActivity() {
 
         val url = this.intent.extras!!.getString("url")
         binding.newsWeb.webViewClient = WebViewClient()
-        binding.newsWeb.loadUrl("https://www.google.com")
+        binding.newsWeb.loadUrl(url!!)
 
         val settings: WebSettings = binding.newsWeb.settings
         settings.javaScriptEnabled = true
