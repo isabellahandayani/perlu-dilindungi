@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/newsFragment">
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.example.perludilindungi.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/listFaskesFragment"
+        android:name="com.example.perludilindungi.ListFaskesFragment"
+        android:label="fragment_list_faskes"
+        tools:layout="@layout/fragment_list_faskes" />
+    <fragment
+        android:id="@+id/bookmarkFaskesFragment"
+        android:name="com.example.perludilindungi.BookmarkFaskesFragment"
+        android:label="fragment_bookmark_faskes"
+        tools:layout="@layout/fragment_bookmark_faskes" />
+</navigation>
