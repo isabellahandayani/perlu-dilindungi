@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PerluDilindungi"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".CheckInActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
