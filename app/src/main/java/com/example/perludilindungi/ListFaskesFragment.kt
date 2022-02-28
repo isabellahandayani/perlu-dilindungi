@@ -18,7 +18,7 @@ class ListFaskesFragment : Fragment() {
     private lateinit var binding: FragmentListFaskesBinding
     lateinit var viewModel: MainViewModel
     private val retrofitService = RetrofitService.getInstance()
-    private lateinit var faskesFragment: FaskesFragment
+    private lateinit var faskesFragment: FaskesFragment // Ini ternyata recyvlerviewnya hehe
 
 
     override fun onCreateView(
