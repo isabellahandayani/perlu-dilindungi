@@ -1,6 +1,5 @@
 package com.example.perludilindungi
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.perludilindungi.model.FaskesResponse

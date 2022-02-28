@@ -1,59 +1,65 @@
 package com.example.perludilindungi
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.example.perludilindungi.databinding.FragmentListFaskesBinding
+import com.example.perludilindungi.model.Faskes
+import com.example.perludilindungi.network.RetrofitService
+import com.example.perludilindungi.repository.Repository
+import com.example.perludilindungi.ui.faskes.FaskesFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ListFaskesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListFaskesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentListFaskesBinding
+    lateinit var viewModel: MainViewModel
+    private val retrofitService = RetrofitService.getInstance()
+    private lateinit var faskesFragment: FaskesFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_faskes, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentListFaskesBinding.inflate(inflater)
+
+
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(Repository(retrofitService))
+        )[MainViewModel::class.java]
+
+
+        viewModel.faskesList.observe(viewLifecycleOwner,  { response ->
+            Log.d("FASKES", "onCreate: $response")
+            if(response != null) {
+                initFragment(response.data)
+            } else {
+                Toast.makeText(requireContext(), "Province or city not found", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.failMsg.observe(viewLifecycleOwner,  {
+            Log.d("NEWS", "onCreateError: $it")
+        })
+
+        viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
+
+        return(binding.root)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFaskesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListFaskesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun initFragment(faskesList: List<Faskes>) {
+        faskesFragment = FaskesFragment.newInstance(faskesList)
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.faskes_page, faskesFragment)
+            .commit()
     }
+
 }
