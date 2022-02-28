@@ -1,7 +1,9 @@
 package com.example.perludilindungi.network
 
+import com.example.perludilindungi.model.CityResponse
 import com.example.perludilindungi.model.NewsResponse
 import com.example.perludilindungi.model.FaskesResponse
+import com.example.perludilindungi.model.ProvinceResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,6 +17,13 @@ interface RetrofitService {
 
     @GET("api/get-faskes-vaksinasi")
     fun getFaskes(@Query("province")  province: String, @Query("city") city: String ) : Call<FaskesResponse>
+
+
+    @GET("api/get-province")
+    fun getProvince() : Call<ProvinceResponse>
+
+    @GET("api/get-city")
+    fun getCity(@Query("start_id") start_id: String) : Call<CityResponse>
 
     companion object {
         var retrofitService: RetrofitService? = null
