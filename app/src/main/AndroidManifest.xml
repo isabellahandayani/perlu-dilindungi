@@ -22,22 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.news.NewsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity android:name=".ui.news.NewsDetails">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.news.NewsActivity" />
-        </activity>
-        <activity
-            android:name=".ui.faskes.FaskesListActivity"
-            android:exported="false"/>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
     </application>
 
 </manifest>

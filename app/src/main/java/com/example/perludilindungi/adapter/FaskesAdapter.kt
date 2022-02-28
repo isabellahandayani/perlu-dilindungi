@@ -21,11 +21,7 @@ class FaskesAdapter(
 
 
     override fun getItemCount(): Int {
-        if(values != null) {
-            return values.size
-        } else {
-            return 0
-        }
+        return values?.size ?: 0
     }
 
 
