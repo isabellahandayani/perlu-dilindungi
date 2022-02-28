@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:src=".NewsActivity">
 
+
     <WebView
         android:id="@+id/news_web"
         android:layout_width="match_parent"

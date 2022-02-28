@@ -1,8 +1,6 @@
 package com.example.perludilindungi.ui.faskes
 
-import android.graphics.Movie
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +9,7 @@ import com.example.perludilindungi.MainViewModel
 import com.example.perludilindungi.R
 import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.databinding.FaskesListBinding
-import com.example.perludilindungi.databinding.NewsBinding
 import com.example.perludilindungi.model.Faskes
-import com.example.perludilindungi.model.FaskesResponse
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 
