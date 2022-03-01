@@ -4,4 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back">Back</string>
+    <string name="pilih_kota">Pilih Kota</string>
+    <string name="pilih_provinsi">Pilih Provinsi</string>
+    <string name="cari_faskes">Cari Faskes</string>
 </resources>

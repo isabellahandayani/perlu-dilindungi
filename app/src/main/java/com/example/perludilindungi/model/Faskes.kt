@@ -1,5 +1,8 @@
 package com.example.perludilindungi.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class FaskesResponse(
     val count_total: Int,
     val message: String,
@@ -10,7 +13,6 @@ data class FaskesResponse(
 data class Faskes(
     val alamat: String,
     val detail: List<Detail>,
-    val id: Int,
     val jenis_faskes: String,
     val kelas_rs: String,
     val kode: String,
@@ -21,7 +23,8 @@ data class Faskes(
     val provinsi: String,
     val source_data: String,
     val status: String,
-    val telp: String
+    val telp: String,
+    val id: Int
 )
 
 data class Detail(

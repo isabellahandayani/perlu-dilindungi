@@ -7,16 +7,32 @@ import com.example.perludilindungi.databinding.FragmentFaskesItemBinding
 import com.example.perludilindungi.model.Faskes
 
 class FaskesAdapter(
-    private val values: List<Faskes>?
+    val values: List<Faskes>?
 ) : RecyclerView.Adapter<FaskesAdapter.FaskesViewHolder>() {
 
-    class FaskesViewHolder(val binding: FragmentFaskesItemBinding) : RecyclerView.ViewHolder(binding.root)
+    private lateinit var listener: onItemClickListener
+
+    interface onItemClickListener {
+        fun onItemClick(pos: Int)
+    }
+
+    fun setOnItemClickListener(itemListener: onItemClickListener) {
+        listener = itemListener
+    }
+
+    class FaskesViewHolder(val binding: FragmentFaskesItemBinding, val listener: onItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.newsCard.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaskesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         val binding = FragmentFaskesItemBinding.inflate(inflater, parent, false)
-        return FaskesViewHolder(binding)
+        return FaskesViewHolder(binding, listener)
     }
 
 

@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.perludilindungi.NewsFragment"
+        android:name="com.example.perludilindungi.ui.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/listFaskesFragment"
-        android:name="com.example.perludilindungi.ListFaskesFragment"
+        android:name="com.example.perludilindungi.ui.faskes.ListFaskesFragment"
         android:label="fragment_list_faskes"
         tools:layout="@layout/fragment_list_faskes" />
     <fragment
         android:id="@+id/bookmarkFaskesFragment"
-        android:name="com.example.perludilindungi.BookmarkFaskesFragment"
+        android:name="com.example.perludilindungi.ui.faskes.BookmarkFaskesFragment"
         android:label="fragment_bookmark_faskes"
         tools:layout="@layout/fragment_bookmark_faskes" />
 </navigation>

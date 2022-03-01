@@ -1,4 +1,4 @@
-package com.example.perludilindungi
+package com.example.perludilindungi.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

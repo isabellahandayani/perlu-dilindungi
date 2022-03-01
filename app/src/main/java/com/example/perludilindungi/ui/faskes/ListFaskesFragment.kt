@@ -1,6 +1,5 @@
-package com.example.perludilindungi
+package com.example.perludilindungi.ui.faskes
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,12 +10,13 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.perludilindungi.R
+import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.databinding.FragmentListFaskesBinding
 import com.example.perludilindungi.model.Faskes
-import com.example.perludilindungi.model.Province
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
-import com.example.perludilindungi.ui.faskes.FaskesFragment
+import com.example.perludilindungi.viewmodels.MainViewModel
 
 class ListFaskesFragment : Fragment() {
     private lateinit var binding: FragmentListFaskesBinding
@@ -38,6 +38,8 @@ class ListFaskesFragment : Fragment() {
             this,
             ViewModelFactory(Repository(retrofitService))
         )[MainViewModel::class.java]
+
+
 
 
         viewModel.faskesList.observe(viewLifecycleOwner,  { response ->
@@ -71,7 +73,7 @@ class ListFaskesFragment : Fragment() {
         viewModel.getProvince()
         val spinner : Spinner = binding.spinnerProvinsi
         spinner.adapter = ArrayAdapter<String>(requireContext(),
-        R.layout.support_simple_spinner_dropdown_item,
+            R.layout.support_simple_spinner_dropdown_item,
         provinceNameData)
 
 
@@ -84,6 +86,7 @@ class ListFaskesFragment : Fragment() {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.faskes_page, faskesFragment)
+            .addToBackStack(null)
             .commit()
     }
 
