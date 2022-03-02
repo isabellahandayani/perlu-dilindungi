@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.perludilindungi.R
 import com.example.perludilindungi.adapter.FaskesAdapter
 import com.example.perludilindungi.databinding.FragmentFaskesListBinding
 import com.example.perludilindungi.model.Faskes
@@ -44,6 +45,17 @@ class FaskesFragment : Fragment() {
         faskesAdapter = FaskesAdapter(get())
         binding.list.adapter = faskesAdapter
 
+        faskesAdapter.setOnItemClickListener(object: FaskesAdapter.onItemClickListener{
+            override fun onItemClick(pos: Int) {
+                val detailFragment = DetailFaskesFragment.newInstance(faskesAdapter.values?.get(pos))
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_fragment, detailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+        })
         binding.list.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
@@ -54,3 +66,4 @@ class FaskesFragment : Fragment() {
 
 
 }
+

@@ -1,5 +1,5 @@
 
-package com.example.perludilindungi
+package com.example.perludilindungi.ui.news
 
 import android.os.Bundle
 import android.util.Log
@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.perludilindungi.R
+import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.adapter.NewsAdapter
 import com.example.perludilindungi.databinding.NewsBinding
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
-import com.example.perludilindungi.ui.news.WebViewFragment
+import com.example.perludilindungi.viewmodels.MainViewModel
 
 class NewsFragment : Fragment() {
     private lateinit var binding: NewsBinding

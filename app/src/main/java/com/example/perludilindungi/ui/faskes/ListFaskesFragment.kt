@@ -1,6 +1,5 @@
-package com.example.perludilindungi
+package com.example.perludilindungi.ui.faskes
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,12 +11,13 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.perludilindungi.R
+import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.databinding.FragmentListFaskesBinding
 import com.example.perludilindungi.model.Faskes
-import com.example.perludilindungi.model.Province
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
-import com.example.perludilindungi.ui.faskes.FaskesFragment
+import com.example.perludilindungi.viewmodels.MainViewModel
 
 class ListFaskesFragment : Fragment() {
     private lateinit var binding: FragmentListFaskesBinding
@@ -40,10 +40,12 @@ class ListFaskesFragment : Fragment() {
         binding = FragmentListFaskesBinding.inflate(inflater)
 
 
-        viewModel = ViewModelProvider(
+        ViewModelProvider(
             this,
             ViewModelFactory(Repository(retrofitService))
-        )[MainViewModel::class.java]
+        )[MainViewModel::class.java].also { viewModel = it }
+
+
 
 
         viewModel.faskesList.observe(viewLifecycleOwner,  { response ->
@@ -141,6 +143,7 @@ class ListFaskesFragment : Fragment() {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.faskes_page, faskesFragment)
+            .addToBackStack(null)
             .commit()
     }
 

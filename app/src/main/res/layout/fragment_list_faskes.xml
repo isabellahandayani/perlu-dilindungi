@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListFaskesFragment">
+    tools:context=".ui.faskes.ListFaskesFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -16,13 +16,13 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Cari Faskes" />
+            android:text="@string/cari_faskes" />
 
         <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Pilih Provinsi" />
+            android:text="@string/pilih_provinsi" />
 
         <Spinner
             android:id="@+id/spinner_provinsi"
@@ -35,7 +35,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Pilih Kota" />
+            android:text="@string/pilih_kota" />
 
         <Spinner
             android:id="@+id/spinner_kota"
@@ -47,7 +47,11 @@
         <FrameLayout
             android:id="@+id/faskes_page"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@android:dimen/notification_large_icon_height"/>
+
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

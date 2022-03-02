@@ -3,6 +3,7 @@ package com.example.perludilindungi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.perludilindungi.repository.Repository
+import com.example.perludilindungi.viewmodels.MainViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory constructor(private val repository: Repository) : ViewModelProvider.Factory {

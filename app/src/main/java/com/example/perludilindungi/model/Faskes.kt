@@ -1,5 +1,10 @@
 package com.example.perludilindungi.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+
 data class FaskesResponse(
     val count_total: Int,
     val message: String,
@@ -7,22 +12,25 @@ data class FaskesResponse(
     val success: Boolean
 )
 
-data class Faskes(
-    val alamat: String,
-    val detail: List<Detail>,
-    val id: Int,
-    val jenis_faskes: String,
-    val kelas_rs: String,
-    val kode: String,
-    val kota: String,
-    val latitude: String,
-    val longitude: String,
-    val nama: String,
-    val provinsi: String,
-    val source_data: String,
-    val status: String,
-    val telp: String
-)
+@Entity(tableName = "faskes")
+data class Faskes (
+    var alamat: String,
+    @Ignore var detail: List<Detail>? = null,
+    var jenis_faskes: String,
+    var kelas_rs: String,
+    var kode: String,
+    var kota: String,
+    var latitude: String,
+    var longitude: String,
+    var nama: String,
+    var provinsi: String,
+    var source_data: String,
+    var status: String,
+    var telp: String,
+    @PrimaryKey var id: Int
+) {
+    constructor() : this("", null, "", "", "", "", "", "","", "", "", "", "", 0 )
+}
 
 data class Detail(
     val batal_vaksin: Int,
