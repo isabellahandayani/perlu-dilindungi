@@ -1,9 +1,11 @@
 
 package com.example.perludilindungi.ui.faskes
 
+import android.content.Intent
 import android.database.SQLException
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,7 +53,7 @@ class DetailFaskesFragment : Fragment() {
         try {
             displayFaskesData(faskes)
         }catch (e :NullPointerException) {
-            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Faskes display error", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnBookmark.setOnClickListener {
@@ -62,6 +64,22 @@ class DetailFaskesFragment : Fragment() {
 
             } catch (e: SQLiteConstraintException) {
                 Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnGmaps.setOnClickListener {
+
+
+            try {
+                val latitude = faskes.latitude
+                val longitude = faskes.longitude
+                val nama = faskes.nama.replace(" ", "+")
+                val gmmIntentUri = Uri.parse("geo:${latitude},${longitude}?q=${nama}")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
+            }catch (e : NullPointerException) {
+                Toast.makeText(requireContext(), "Error, cannot open google maps", Toast.LENGTH_SHORT).show()
             }
         }
 
