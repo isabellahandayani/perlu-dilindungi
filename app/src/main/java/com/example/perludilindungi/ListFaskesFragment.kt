@@ -28,6 +28,8 @@ class ListFaskesFragment : Fragment() {
     val cityNameData : ArrayList<String> = ArrayList<String>()
     val UNKNOWN_PROVINCE = "--Pilih Provinsi--"
     val UNKNOWN_CITY = "--Pilih Kota--"
+    var selectedProvinceName : String = UNKNOWN_PROVINCE
+    var selectedCityName : String = UNKNOWN_CITY
 
 
     override fun onCreateView(
@@ -53,10 +55,23 @@ class ListFaskesFragment : Fragment() {
             }
         })
 
+        viewModel.failMsg.observe(viewLifecycleOwner,  {
+            Log.d("NEWS", "onCreateError: $it")
+        })
+
+        viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
+
+        initSpinners()
+
+        return(binding.root)
+    }
+
+    private fun initSpinners() {
+        // Init province spinner
         provinceNameData.add(UNKNOWN_PROVINCE)
         initCityData()
         viewModel.provinceList.observe(viewLifecycleOwner, {
-            response ->
+                response ->
             if (response != null) {
                 val provinceData = response.results
                 for (province in provinceData) {
@@ -67,35 +82,31 @@ class ListFaskesFragment : Fragment() {
             }
         })
 
-        viewModel.failMsg.observe(viewLifecycleOwner,  {
-            Log.d("NEWS", "onCreateError: $it")
-        })
-
-        viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
-
         // get the province and add to spinner
         viewModel.getProvince()
         val spinnerProvinsi : Spinner = binding.spinnerProvinsi
         spinnerProvinsi.adapter = ArrayAdapter<String>(requireContext(),
-        R.layout.support_simple_spinner_dropdown_item,
-        provinceNameData)
+            R.layout.support_simple_spinner_dropdown_item,
+            provinceNameData)
 
         // get the city and add to spinner
         val spinnerKota : Spinner = binding.spinnerKota
         spinnerKota.adapter = ArrayAdapter<String>(requireContext(),
-        R.layout.support_simple_spinner_dropdown_item,
-        cityNameData)
+            R.layout.support_simple_spinner_dropdown_item,
+            cityNameData)
+
         spinnerProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedProvince = parent?.getItemAtPosition(position).toString()
-                if (selectedProvince != null) {
-                    viewModel.getCity(selectedProvince)
+                selectedProvinceName = parent?.getItemAtPosition(position).toString()
+                selectProvinceAndCity()
+                if (selectedProvinceName != UNKNOWN_PROVINCE) {
+                    viewModel.getCity(selectedProvinceName)
                     viewModel.cityList.observe(viewLifecycleOwner, {
-                        response ->
+                            response ->
                         if (response != null) {
                             initCityData()
                             val cityData = response.results
@@ -110,8 +121,18 @@ class ListFaskesFragment : Fragment() {
             }
         }
 
+        spinnerKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedCityName = parent?.getItemAtPosition(position).toString()
+                selectProvinceAndCity()
+            }
 
-        return(binding.root)
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+
     }
 
     private fun initFragment(faskesList: List<Faskes>) {
@@ -126,6 +147,19 @@ class ListFaskesFragment : Fragment() {
     private fun initCityData() {
         cityNameData.clear()
         cityNameData.add(UNKNOWN_CITY)
+    }
+
+    private fun selectProvinceAndCity() {
+        if (selectedProvinceName == null) {
+            selectedProvinceName = UNKNOWN_PROVINCE
+        }
+        if (selectedCityName == null) {
+            selectedCityName = UNKNOWN_CITY
+        }
+        if (selectedCityName != UNKNOWN_CITY || selectedProvinceName != UNKNOWN_PROVINCE) {
+            // init fragment
+            viewModel.getFaskes(selectedProvinceName, selectedCityName)
+        }
     }
 
 }
