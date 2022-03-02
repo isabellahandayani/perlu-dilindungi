@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -24,6 +25,9 @@ class ListFaskesFragment : Fragment() {
     private val retrofitService = RetrofitService.getInstance()
     private lateinit var faskesFragment: FaskesFragment
     val provinceNameData : ArrayList<String> = ArrayList<String>()
+    val cityNameData : ArrayList<String> = ArrayList<String>()
+    val UNKNOWN_PROVINCE = "--Pilih Provinsi--"
+    val UNKNOWN_CITY = "--Pilih Kota--"
 
 
     override fun onCreateView(
@@ -49,6 +53,8 @@ class ListFaskesFragment : Fragment() {
             }
         })
 
+        provinceNameData.add(UNKNOWN_PROVINCE)
+        initCityData()
         viewModel.provinceList.observe(viewLifecycleOwner, {
             response ->
             if (response != null) {
@@ -69,10 +75,40 @@ class ListFaskesFragment : Fragment() {
 
         // get the province and add to spinner
         viewModel.getProvince()
-        val spinner : Spinner = binding.spinnerProvinsi
-        spinner.adapter = ArrayAdapter<String>(requireContext(),
+        val spinnerProvinsi : Spinner = binding.spinnerProvinsi
+        spinnerProvinsi.adapter = ArrayAdapter<String>(requireContext(),
         R.layout.support_simple_spinner_dropdown_item,
         provinceNameData)
+
+        // get the city and add to spinner
+        val spinnerKota : Spinner = binding.spinnerKota
+        spinnerKota.adapter = ArrayAdapter<String>(requireContext(),
+        R.layout.support_simple_spinner_dropdown_item,
+        cityNameData)
+        spinnerProvinsi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedProvince = parent?.getItemAtPosition(position).toString()
+                if (selectedProvince != null) {
+                    viewModel.getCity(selectedProvince)
+                    viewModel.cityList.observe(viewLifecycleOwner, {
+                        response ->
+                        if (response != null) {
+                            initCityData()
+                            val cityData = response.results
+                            for (city in cityData) {
+                                cityNameData.add(city.value)
+                            }
+                        }else {
+                            Toast.makeText(requireContext(), "City list not found", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            }
+        }
 
 
         return(binding.root)
@@ -85,6 +121,11 @@ class ListFaskesFragment : Fragment() {
             .beginTransaction()
             .replace(R.id.faskes_page, faskesFragment)
             .commit()
+    }
+
+    private fun initCityData() {
+        cityNameData.clear()
+        cityNameData.add(UNKNOWN_CITY)
     }
 
 }
