@@ -1,29 +1,28 @@
 package com.example.perludilindungi.viewmodels
 
+import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.*
-import com.example.perludilindungi.model.FaskesDB
+import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.repository.FaskesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.jvm.Throws
 
 class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
 
-    private val faskesList: LiveData<List<FaskesDB>> = repository.getData
+    val faskesList: LiveData<List<Faskes>> = repository.getData
 
 
-    fun insert(id:FaskesDB) {
+    @Throws(SQLiteConstraintException::class)
+    fun insert(faskes:Faskes) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(id)
+            repository.insert(faskes)
         }
     }
 
-    fun delete(id: FaskesDB) {
+    fun delete(faskes: Faskes) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                repository.delete(id)
-            } catch (e: Exception) {
-
-            }
+            repository.delete(faskes)
         }
     }
 }

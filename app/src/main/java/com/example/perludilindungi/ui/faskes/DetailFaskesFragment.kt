@@ -1,6 +1,8 @@
 
 package com.example.perludilindungi.ui.faskes
 
+import android.database.SQLException
+import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +14,6 @@ import androidx.fragment.app.viewModels
 import com.example.perludilindungi.FaskesApplication
 import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
-import com.example.perludilindungi.model.FaskesDB
 import com.example.perludilindungi.viewmodels.FaskesViewModel
 import com.example.perludilindungi.viewmodels.FaskesViewModelFactory
 
@@ -45,17 +46,15 @@ class DetailFaskesFragment : Fragment() {
         binding = FragmentDetailFaskesBinding.inflate(inflater)
 
         binding.btnBookmark.setOnClickListener {
-            val faskesDB = FaskesDB(get()!!.id)
+            val faskes = get()!!
 
             try {
-                viewModel.insert(faskesDB)
+                viewModel.insert(faskes)
                 Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
 
-            } catch (e: SQLiteException) {
+            } catch (e: SQLiteConstraintException) {
                 Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
             }
-
-
         }
 
 

@@ -4,17 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.perludilindungi.model.FaskesDB
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.example.perludilindungi.model.Faskes
 
-// Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [FaskesDB::class], version = 1, exportSchema = false)
-public abstract class AppDatabase : RoomDatabase() {
+@Database(entities = [Faskes::class], version = 1, exportSchema = false)
+
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun faskesDao(): FaskesDao
-
 
     companion object {
         @Volatile

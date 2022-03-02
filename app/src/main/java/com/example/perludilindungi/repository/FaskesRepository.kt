@@ -1,25 +1,24 @@
 package com.example.perludilindungi.repository
 
-import android.database.sqlite.SQLiteException
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.perludilindungi.di.FaskesDao
-import com.example.perludilindungi.model.FaskesDB
+import com.example.perludilindungi.model.Faskes
 
 class FaskesRepository(private val faskesDao: FaskesDao) {
 
-    val getData: LiveData<List<FaskesDB>> = faskesDao.getAll()
+    val getData: LiveData<List<Faskes>> = faskesDao.getAll()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(id: FaskesDB) {
-            faskesDao.insert(id)
+    suspend fun insert(faskes: Faskes) {
+            faskesDao.insert(faskes)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun delete(id: FaskesDB) {
-        faskesDao.delete(id)
+    suspend fun delete(faskes: Faskes) {
+        faskesDao.delete(faskes)
     }
 
     @Suppress("RedundantSuspendModifier")

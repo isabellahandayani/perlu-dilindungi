@@ -34,10 +34,10 @@ class ListFaskesFragment : Fragment() {
         binding = FragmentListFaskesBinding.inflate(inflater)
 
 
-        viewModel = ViewModelProvider(
+        ViewModelProvider(
             this,
             ViewModelFactory(Repository(retrofitService))
-        )[MainViewModel::class.java]
+        )[MainViewModel::class.java].also { viewModel = it }
 
 
 
