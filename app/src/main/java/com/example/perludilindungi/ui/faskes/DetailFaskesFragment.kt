@@ -16,6 +16,7 @@ import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.viewmodels.FaskesViewModel
 import com.example.perludilindungi.viewmodels.FaskesViewModelFactory
+import java.lang.NullPointerException
 
 class DetailFaskesFragment : Fragment() {
     private lateinit var binding: FragmentDetailFaskesBinding
@@ -45,8 +46,15 @@ class DetailFaskesFragment : Fragment() {
     ): View? {
         binding = FragmentDetailFaskesBinding.inflate(inflater)
 
+        val faskes = get()!!
+
+        try {
+            displayFaskesData(faskes)
+        }catch (e :NullPointerException) {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+        }
+
         binding.btnBookmark.setOnClickListener {
-            val faskes = get()!!
 
             try {
                 viewModel.insert(faskes)
@@ -59,6 +67,15 @@ class DetailFaskesFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun displayFaskesData(faskes : Faskes) {
+        binding.namaFaskes.setText(faskes.nama)
+        binding.kodeFaskes.setText(faskes.kode)
+        binding.jenisFaskes.setText(faskes.jenis_faskes)
+        binding.alamatFaskes.setText(faskes.alamat)
+        binding.teleponFaskes.setText(faskes.telp)
+        binding.statusFaskes.setText(faskes.status)
     }
 
 
