@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.location.LocationProvider
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -23,6 +22,7 @@ import com.example.perludilindungi.databinding.ActivityCheckinBinding
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.services.TemperatureService
+import com.example.perludilindungi.viewmodels.MainViewModel
 import com.google.android.gms.location.*
 import com.google.zxing.BarcodeFormat
 
