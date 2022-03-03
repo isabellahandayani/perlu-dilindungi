@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.location.LocationProvider
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -32,8 +33,9 @@ class CheckInActivity : AppCompatActivity() {
     private lateinit var codeScanner: CodeScanner
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var temperatureService: TemperatureService
-    private lateinit var viewModel:MainViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var prevQR: String
+//    private lateinit var locationProviderClient: LocationProvider
 
     private val retrofitService = RetrofitService.getInstance()
     private var qrCode = ""
@@ -58,6 +60,10 @@ class CheckInActivity : AppCompatActivity() {
         setUpPermission()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         codeScanner()
+
+//        locationProviderClient = LocationProvider(this)
+//        locationProviderClient.startUpdates()
+
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(Repository(retrofitService))
@@ -76,15 +82,20 @@ class CheckInActivity : AppCompatActivity() {
                     "black" -> {
                         binding.responseIcon.setImageResource(R.drawable.ic_black_x_circle)
                     }
+                    "red" -> {
+                        binding.responseIcon.setImageResource(R.drawable.ic_red_x)
+                    }
                 }
 
-                binding.userStatus.text = response.data?.userStatus ?: ""
+//                binding.userStatus.text = response.data?.userStatus ?: ""
 
                 if (response.data?.userStatus == "red"
                     || response.data?.userStatus == "black"){
                     binding.message.text = response.data.reason
+                    binding.userStatus.text = "Gagal"
                 } else{
                     binding.message.text = ""
+                    binding.userStatus.text = "Berhasil"
                 }
 
 
@@ -92,6 +103,8 @@ class CheckInActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("Retro", e.localizedMessage)
                 binding.userStatus.text = "Invalid QR Code"
+                binding.message.text = ""
+                binding.responseIcon.setImageResource(0)
             }
         }
 
@@ -117,6 +130,10 @@ class CheckInActivity : AppCompatActivity() {
                     qrCode = it.text
                     prevQR = qrCode
                     fetchLocation()
+//                    locationProviderClient.updateLocation()
+//                    val loc = locationProviderClient.getCurrentLocation()
+//
+//                    Log.d("Location", "${loc!!.latitude} ${loc!!.longitude}")
                     Log.d("Text", it.text)
                 }
             }
@@ -197,17 +214,11 @@ class CheckInActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful && task.result != null) {
                             lastKnownLocation = task.result
-                            try{
-                              startLocationUpdates()
-                            } catch (e: Exception) {
-                                e.message?.let { Log.e("Error", it) }
-                            }
-                        } else {
-                            try{
-                                startLocationUpdates()
-                            } catch (e: Exception) {
-                                e.message?.let { Log.e("Error", it) }
-                            }
+                        }
+                        try{
+                            startLocationUpdates()
+                        } catch (e: Exception) {
+                            e.message?.let { Log.e("Error", it) }
                         }
                     }
             } else {

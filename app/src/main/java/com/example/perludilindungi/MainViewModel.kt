@@ -62,7 +62,7 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
 
     fun checkIn(qrCode: String, latitude: Double, longitude: Double){
         var checkIn = CheckIn(qrCode, latitude, longitude)
-        Log.e("what", "$latitude $longitude $qrCode")
+//        Log.d("what", "$latitude $longitude $qrCode")
         val result = repository.checkIn(checkIn)
 
         with(result) {
@@ -72,7 +72,7 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
                         call: Call<CheckInResponse>,
                         response: Response<CheckInResponse>
                     ) {
-                        Log.e("Body", response.body().toString())
+
                         checkInResult.postValue(response.body())
                     }
 
