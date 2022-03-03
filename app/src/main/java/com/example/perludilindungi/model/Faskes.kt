@@ -14,19 +14,19 @@ data class FaskesResponse(
 
 @Entity(tableName = "faskes")
 data class Faskes (
-    var alamat: String,
+    var alamat: String?,
     @Ignore var detail: List<Detail>? = null,
-    var jenis_faskes: String,
-    var kelas_rs: String,
-    var kode: String,
-    var kota: String,
-    var latitude: String,
-    var longitude: String,
-    var nama: String,
-    var provinsi: String,
-    var source_data: String,
-    var status: String,
-    var telp: String,
+    var jenis_faskes: String?,
+    var kelas_rs: String?,
+    var kode: String?,
+    var kota: String?,
+    var latitude: String?,
+    var longitude: String?,
+    var nama: String?,
+    var provinsi: String?,
+    var source_data: String?,
+    var status: String?,
+    var telp: String?,
     @PrimaryKey var id: Int
 ) {
     constructor() : this("", null, "", "", "", "", "", "","", "", "", "", "", 0 )

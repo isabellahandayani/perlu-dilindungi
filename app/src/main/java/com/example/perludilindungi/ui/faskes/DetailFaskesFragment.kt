@@ -14,11 +14,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.example.perludilindungi.FaskesApplication
 import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.viewmodels.FaskesViewModel
 import com.example.perludilindungi.viewmodels.FaskesViewModelFactory
+import kotlinx.coroutines.launch
+import java.lang.Integer.parseInt
 import java.lang.NullPointerException
 
 class DetailFaskesFragment : Fragment() {
@@ -59,20 +62,22 @@ class DetailFaskesFragment : Fragment() {
         }
 
         binding.btnBookmark.setOnClickListener {
-            val check = viewModel.exist
-            Log.i("check_value",viewModel.cnt.toString())
-            if (check) {
-                viewModel.delete(faskes)
-                binding.btnBookmark.setText("+BOOKMARK")
-                Toast.makeText(requireContext(), "Successfully unbookmarked", Toast.LENGTH_SHORT).show()
-            }else{
-                try {
-                    viewModel.insert(faskes)
-                    binding.btnBookmark.setText("-UNBOOKMARK")
-                    Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
+            viewModel.viewModelScope.launch {
+                val check = viewModel.isExists(faskes.id) > 0
+                Toast.makeText(requireContext(), "AAAAAAAAAA$check", Toast.LENGTH_SHORT).show()
+                if (check) {
+                    viewModel.delete(faskes)
+                    binding.btnBookmark.setText("+BOOKMARK")
+                    Toast.makeText(requireContext(), "Successfully unbookmarked", Toast.LENGTH_SHORT).show()
+                }else{
+                    try {
+                        viewModel.insert(faskes)
+                        binding.btnBookmark.setText("-UNBOOKMARK")
+                        Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
 
-                } catch (e: SQLiteConstraintException) {
-                    Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                    } catch (e: SQLiteConstraintException) {
+                        Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -83,7 +88,7 @@ class DetailFaskesFragment : Fragment() {
             try {
                 val latitude = faskes.latitude
                 val longitude = faskes.longitude
-                val nama = faskes.nama.replace(" ", "+")
+                val nama = faskes.nama?.replace(" ", "+")
                 val gmmIntentUri = Uri.parse("geo:${latitude},${longitude}?q=${nama}")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")

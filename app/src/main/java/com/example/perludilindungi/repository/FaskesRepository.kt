@@ -1,5 +1,6 @@
 package com.example.perludilindungi.repository
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.perludilindungi.di.FaskesDao
@@ -8,8 +9,8 @@ import com.example.perludilindungi.model.Faskes
 class FaskesRepository(private val faskesDao: FaskesDao) {
 
     val getData: LiveData<List<Faskes>> = faskesDao.getAll()
-    var exist: Boolean = false
-    var cnt: Int = -999
+//    var exist: Boolean = false
+//    var cnt: LiveData<Int> = null
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -25,19 +26,19 @@ class FaskesRepository(private val faskesDao: FaskesDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getAll() {
-        faskesDao.getAll()
+    suspend fun getAll(): LiveData<List<Faskes>> {
+        return faskesDao.getAll()
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun isExists(id : Int){
-        exist = faskesDao.count(id) == 0
+    suspend fun isExists(id : Int): Int {
+        return faskesDao.count(id)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun count(id : Int){
-        cnt = faskesDao.count(id)
-    }
+//    @Suppress("RedundantSuspendModifier")
+//    @WorkerThread
+//    suspend fun count(id : Int): Boolean {
+//        return faskesDao.count(id) > 0
+//    }
 }

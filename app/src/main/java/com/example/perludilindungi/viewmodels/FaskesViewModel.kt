@@ -1,18 +1,22 @@
 package com.example.perludilindungi.viewmodels
 
 import android.database.sqlite.SQLiteConstraintException
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.repository.FaskesRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.jvm.Throws
 
 class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
 
     val faskesList: LiveData<List<Faskes>> = repository.getData
-    val cnt: Int = repository.cnt
-    val exist: Boolean = repository.exist
+//    val cnt: Int = repository.cnt
+//    val exist: Boolean = repository.exist
 
 
     @Throws(SQLiteConstraintException::class)
@@ -28,17 +32,17 @@ class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
         }
     }
 
-    fun isExists(id: Int){
-        viewModelScope.launch(Dispatchers.IO) {
+    suspend fun isExists(id: Int): Int {
+        return withContext(Dispatchers.IO) {
             repository.isExists(id)
         }
     }
 
-    fun count(id: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.count(id)
-        }
-    }
+//    fun count(id: Int){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.count(id)
+//        }
+//    }
 }
 
 class FaskesViewModelFactory(val repository: FaskesRepository) : ViewModelProvider.Factory {
