@@ -3,6 +3,9 @@
     package="com.example.perludilindungi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".FaskesApplication"
@@ -13,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PerluDilindungi"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CheckInActivity" />
+        <activity
+            android:name=".CheckInActivity"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,13 +1,17 @@
 package com.example.perludilindungi.network
 
 import com.example.perludilindungi.model.CityResponse
+import com.example.perludilindungi.model.CheckIn
+import com.example.perludilindungi.model.CheckInResponse
 import com.example.perludilindungi.model.NewsResponse
 import com.example.perludilindungi.model.FaskesResponse
 import com.example.perludilindungi.model.ProvinceResponse
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface RetrofitService {
@@ -24,6 +28,8 @@ interface RetrofitService {
 
     @GET("api/get-city")
     fun getCity(@Query("start_id") start_id: String) : Call<CityResponse>
+    @POST("check-in")
+    fun checkIn(@Body checkIn: CheckIn) : Call<CheckInResponse>
 
     companion object {
         var retrofitService: RetrofitService? = null

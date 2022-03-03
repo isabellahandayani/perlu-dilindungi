@@ -1,16 +1,23 @@
 package com.example.perludilindungi.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.perludilindungi.model.*
+import com.example.perludilindungi.model.CheckIn
+import com.example.perludilindungi.model.CheckInResponse
+import com.example.perludilindungi.model.FaskesResponse
+import com.example.perludilindungi.model.NewsResponse
 import com.example.perludilindungi.repository.Repository
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.Exception
 
 class MainViewModel constructor(private val repository: Repository) : ViewModel() {
     val list = MutableLiveData<NewsResponse>()
     val faskesList = MutableLiveData<FaskesResponse>()
     val failMsg = MutableLiveData<String>()
+    val checkInResult = MutableLiveData<CheckInResponse>()
 
     val provinceList = MutableLiveData<ProvinceResponse>()
     val cityList = MutableLiveData<CityResponse>()
@@ -101,4 +108,28 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
         }
     }
 
+    fun checkIn(qrCode: String, latitude: Double, longitude: Double){
+        var checkIn = CheckIn(qrCode, latitude, longitude)
+//        Log.d("what", "$latitude $longitude $qrCode")
+        val result = repository.checkIn(checkIn)
+
+        with(result) {
+            enqueue(
+                object : retrofit2.Callback<CheckInResponse> {
+                    override fun onResponse(
+                        call: Call<CheckInResponse>,
+                        response: Response<CheckInResponse>
+                    ) {
+
+                        checkInResult.postValue(response.body())
+                    }
+
+                    override fun onFailure(call: Call<CheckInResponse>, t: Throwable) {
+                        failMsg.postValue(t.message)
+                    }
+
+                }
+            )
+        }
+    }
 }
