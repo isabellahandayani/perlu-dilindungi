@@ -3,6 +3,7 @@ package com.example.perludilindungi
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,7 +19,6 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.perludilindungi.databinding.ActivityCheckinBinding
-import com.example.perludilindungi.model.CheckIn
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.services.TemperatureService
@@ -33,11 +33,11 @@ class CheckInActivity : AppCompatActivity() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var temperatureService: TemperatureService
     private lateinit var viewModel:MainViewModel
+    private lateinit var prevQR: String
+
     private val retrofitService = RetrofitService.getInstance()
     private var qrCode = ""
-    private var latitude: Double? = null
-    private var longitude: Double? = null
-    private lateinit var checkIn: CheckIn
+    private lateinit var lastKnownLocation: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,6 @@ class CheckInActivity : AppCompatActivity() {
         setUpPermission()
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         codeScanner()
-
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(Repository(retrofitService))
@@ -66,18 +65,33 @@ class CheckInActivity : AppCompatActivity() {
 
         viewModel.checkInResult.observe(this) { response ->
             try{
+
+                when(response.data?.userStatus) {
+                    "yellow" -> {
+                        binding.responseIcon.setImageResource(R.drawable.ic_yellow_checkmark_circle)
+                    }
+                    "green" -> {
+                        binding.responseIcon.setImageResource(R.drawable.ic_green_checkmark_circle)
+                    }
+                    "black" -> {
+                        binding.responseIcon.setImageResource(R.drawable.ic_black_x_circle)
+                    }
+                }
+
+                binding.userStatus.text = response.data?.userStatus ?: ""
+
                 if (response.data?.userStatus == "red"
-                    || response.data?.userStatus == "red"){
-                    binding.scanResult.text = response.data.reason
+                    || response.data?.userStatus == "black"){
+                    binding.message.text = response.data.reason
                 } else{
-                    // do nothing
+                    binding.message.text = ""
                 }
 
 
 
             } catch (e: Exception) {
                 Log.e("Retro", e.localizedMessage)
-                binding.scanResult.text = "Invalid QR Code"
+                binding.userStatus.text = "Invalid QR Code"
             }
         }
 
@@ -93,16 +107,17 @@ class CheckInActivity : AppCompatActivity() {
             formats = listOf(BarcodeFormat.QR_CODE)
 
             autoFocusMode = AutoFocusMode.SAFE
-            scanMode = ScanMode.SINGLE
+            scanMode = ScanMode.CONTINUOUS
             isAutoFocusEnabled = true
             isFlashEnabled = false
 
             decodeCallback = DecodeCallback {
+
                 runOnUiThread{
-                    if (it.text != ""){
-                        qrCode = it.text
-                        fetchLocation()
-                    }
+                    qrCode = it.text
+                    prevQR = qrCode
+                    fetchLocation()
+                    Log.d("Text", it.text)
                 }
             }
 
@@ -181,10 +196,9 @@ class CheckInActivity : AppCompatActivity() {
                 fusedLocationProviderClient.lastLocation
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful && task.result != null) {
-                            val location = task.result
+                            lastKnownLocation = task.result
                             try{
-//                              startLocationUpdates()
-                                viewModel.checkIn(qrCode, location.latitude, location.longitude)
+                              startLocationUpdates()
                             } catch (e: Exception) {
                                 e.message?.let { Log.e("Error", it) }
                             }
@@ -273,13 +287,20 @@ class CheckInActivity : AppCompatActivity() {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             if (locationResult.locations.isNotEmpty()){
-                binding.userPosition.text = "${locationResult.locations[0].latitude} ${locationResult.locations[0].longitude}"
-                with(viewModel) {
-                    checkIn(qrCode, locationResult.locations.last().latitude, locationResult.locations.last().longitude)
+                val loc = locationResult.locations.last()
+
+                if (loc != null){
+                    with(viewModel) {
+                        checkIn(qrCode, loc.latitude, loc.longitude)
+                    }
+//                    binding.userPosition.text = "${loc.latitude} ${loc.longitude}"
+                    lastKnownLocation = loc
+                } else {
+                    with(viewModel) {
+                        checkIn(qrCode, lastKnownLocation.latitude, lastKnownLocation.longitude)
+                    }
                 }
-
             }
-
         }
     }
 }
