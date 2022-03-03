@@ -11,6 +11,8 @@ import kotlin.jvm.Throws
 class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
 
     val faskesList: LiveData<List<Faskes>> = repository.getData
+    val cnt: Int = repository.cnt
+    val exist: Boolean = repository.exist
 
 
     @Throws(SQLiteConstraintException::class)
@@ -23,6 +25,18 @@ class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
     fun delete(faskes: Faskes) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.delete(faskes)
+        }
+    }
+
+    fun isExists(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.isExists(id)
+        }
+    }
+
+    fun count(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.count(id)
         }
     }
 }

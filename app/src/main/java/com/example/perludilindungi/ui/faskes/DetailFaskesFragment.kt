@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteException
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,7 @@ class DetailFaskesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentDetailFaskesBinding.inflate(inflater)
 
         val faskes = get()!!
@@ -57,13 +59,21 @@ class DetailFaskesFragment : Fragment() {
         }
 
         binding.btnBookmark.setOnClickListener {
+            val check = viewModel.exist
+            Log.i("check_value",viewModel.cnt.toString())
+            if (check) {
+                viewModel.delete(faskes)
+                binding.btnBookmark.setText("+BOOKMARK")
+                Toast.makeText(requireContext(), "Successfully unbookmarked", Toast.LENGTH_SHORT).show()
+            }else{
+                try {
+                    viewModel.insert(faskes)
+                    binding.btnBookmark.setText("-UNBOOKMARK")
+                    Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
 
-            try {
-                viewModel.insert(faskes)
-                Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
-
-            } catch (e: SQLiteConstraintException) {
-                Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                } catch (e: SQLiteConstraintException) {
+                    Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

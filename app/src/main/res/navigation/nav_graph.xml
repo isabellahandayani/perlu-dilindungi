@@ -9,7 +9,7 @@
         android:id="@+id/newsFragment"
         android:name="com.example.perludilindungi.ui.news.NewsFragment"
         android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/news" />
     <fragment
         android:id="@+id/listFaskesFragment"
         android:name="com.example.perludilindungi.ui.faskes.ListFaskesFragment"
@@ -20,4 +20,10 @@
         android:name="com.example.perludilindungi.ui.faskes.BookmarkFaskesFragment"
         android:label="fragment_bookmark_faskes"
         tools:layout="@layout/fragment_bookmark_faskes" />
+    <fragment
+        android:id="@+id/detailFaskesFragment"
+        android:name="com.example.perludilindungi.ui.faskes.DetailFaskesFragment"
+        android:label="fragment_detail_faskes"
+        tools:layout="@layout/fragment_detail_faskes">
+    </fragment>
 </navigation>
