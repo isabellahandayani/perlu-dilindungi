@@ -13,11 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.example.perludilindungi.FaskesApplication
 import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.viewmodels.FaskesViewModel
 import com.example.perludilindungi.viewmodels.FaskesViewModelFactory
+import kotlinx.coroutines.launch
 import java.lang.NullPointerException
 
 class DetailFaskesFragment : Fragment() {
@@ -57,13 +59,22 @@ class DetailFaskesFragment : Fragment() {
         }
 
         binding.btnBookmark.setOnClickListener {
+            viewModel.viewModelScope.launch {
+                val check = viewModel.isExists(faskes.id)
+                if (check) {
+                    viewModel.delete(faskes)
+                    binding.btnBookmark.setText("+BOOKMARK")
+                    Toast.makeText(requireContext(), "Successfully unbookmarked", Toast.LENGTH_SHORT).show()
+                }else{
+                    try {
+                        viewModel.insert(faskes)
+                        binding.btnBookmark.setText("-UNBOOKMARK")
+                        Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
 
-            try {
-                viewModel.insert(faskes)
-                Toast.makeText(requireContext(), "Successfully bookmarked", Toast.LENGTH_SHORT).show()
-
-            } catch (e: SQLiteConstraintException) {
-                Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                    } catch (e: SQLiteConstraintException) {
+                        Toast.makeText(requireContext(), "Fail to bookmark", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
 

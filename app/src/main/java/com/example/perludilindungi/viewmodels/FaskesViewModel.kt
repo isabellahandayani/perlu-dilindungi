@@ -6,6 +6,7 @@ import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.repository.FaskesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.jvm.Throws
 
 class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
@@ -23,6 +24,12 @@ class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
     fun delete(faskes: Faskes) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.delete(faskes)
+        }
+    }
+
+    suspend fun isExists(id: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            repository.isExists(id)
         }
     }
 }

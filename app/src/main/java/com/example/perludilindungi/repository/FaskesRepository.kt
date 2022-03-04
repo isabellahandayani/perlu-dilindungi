@@ -26,4 +26,10 @@ class FaskesRepository(private val faskesDao: FaskesDao) {
     suspend fun getAll() {
         faskesDao.getAll()
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    fun isExists(id: Int): Boolean {
+        return faskesDao.getCount(id) > 0
+    }
 }
