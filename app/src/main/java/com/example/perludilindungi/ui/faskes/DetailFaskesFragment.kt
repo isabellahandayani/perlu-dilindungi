@@ -84,7 +84,7 @@ class DetailFaskesFragment : Fragment() {
             try {
                 val latitude = faskes.latitude
                 val longitude = faskes.longitude
-                val nama = faskes.nama.replace(" ", "+")
+                val nama = faskes.nama?.replace(" ", "+")
                 val gmmIntentUri = Uri.parse("geo:${latitude},${longitude}?q=${nama}")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
