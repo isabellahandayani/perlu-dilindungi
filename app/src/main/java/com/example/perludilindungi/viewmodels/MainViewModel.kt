@@ -21,8 +21,6 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
 
     val provinceList = MutableLiveData<ProvinceResponse>()
     val cityList = MutableLiveData<CityResponse>()
-//    var provinceList = listOf<Province>()
-//    var cityList = listOf<City>()
 
     fun getNews() {
         val result = repository.getNews()
