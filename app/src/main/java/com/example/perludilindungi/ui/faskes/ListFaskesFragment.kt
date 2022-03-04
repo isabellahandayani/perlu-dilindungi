@@ -2,7 +2,6 @@ package com.example.perludilindungi.ui.faskes
 
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,8 +23,6 @@ import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.viewmodels.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
-import kotlin.properties.Delegates
 
 class ListFaskesFragment : Fragment() {
     private lateinit var binding: FragmentListFaskesBinding
@@ -78,7 +75,9 @@ class ListFaskesFragment : Fragment() {
 
         binding.buttonSearch?.setOnClickListener {
             fetchLocation()
-            selectProvinceAndCity()
+            if (latitude != null && longitude != null) {
+                selectProvinceAndCity(true, latitude!!, longitude!!)
+            }
         }
 
         return(binding.root)
@@ -99,8 +98,6 @@ class ListFaskesFragment : Fragment() {
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),101)
             return
         }
-
-
 
         task.addOnSuccessListener {
             if (it != null) {
@@ -196,10 +193,10 @@ class ListFaskesFragment : Fragment() {
         cityNameData.add(UNKNOWN_CITY)
     }
 
-    private fun selectProvinceAndCity() {
+    private fun selectProvinceAndCity(sortedByLocation: Boolean=false, latitude: Double =0.0, longitude: Double=0.0) {
         if (selectedCityName != UNKNOWN_CITY || selectedProvinceName != UNKNOWN_PROVINCE) {
             // init fragment
-            viewModel.getFaskes(selectedProvinceName, selectedCityName)
+            viewModel.getFaskes(selectedProvinceName, selectedCityName,sortedByLocation, latitude, longitude)
         }
     }
 

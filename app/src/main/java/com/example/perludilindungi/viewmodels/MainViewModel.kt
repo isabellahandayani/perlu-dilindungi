@@ -1,5 +1,6 @@
 package com.example.perludilindungi.viewmodels
 
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,7 +44,7 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
         }
     }
 
-    fun getFaskes(province: String, city: String) {
+    fun getFaskes(province: String, city: String, sortedByLocation: Boolean=false, latitude: Double =0.0, longitude: Double=0.0) {
         val result = repository.getFaskes(province, city)
 
         with(result) {
@@ -53,7 +54,23 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
                         call: Call<FaskesResponse>,
                         response: Response<FaskesResponse>,
                     ) {
-                        faskesList.postValue(response.body())
+
+                        var responseBody = response.body()
+
+                        if (sortedByLocation) {
+                            var sortedFaskes = responseBody?.data?.sortedBy { it.latitude?.let { it1 ->
+                                it.longitude?.let { it2 ->
+                                    calculateDistance(latitude,longitude,
+                                        it1.toDouble(), it2.toDouble())
+                                }
+                            } }
+                            if (responseBody != null) {
+                                if (sortedFaskes != null) {
+                                    responseBody.data = sortedFaskes.take(5)
+                                }
+                            }
+                        }
+                        faskesList.postValue(responseBody!!)
                     }
 
                     override fun onFailure(call: Call<FaskesResponse>, t: Throwable) {
@@ -129,5 +146,12 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
                 }
             )
         }
+    }
+
+    fun calculateDistance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Float {
+        val results = FloatArray(1)
+        Location.distanceBetween(lat1, lng1, lat2, lng2, results)
+        // distance in meter
+        return results[0]
     }
 }

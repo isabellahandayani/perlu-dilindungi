@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class FaskesResponse(
     val count_total: Int,
     val message: String,
-    val data: List<Faskes>,
+    var data: List<Faskes>,
     val success: Boolean
 )
 
