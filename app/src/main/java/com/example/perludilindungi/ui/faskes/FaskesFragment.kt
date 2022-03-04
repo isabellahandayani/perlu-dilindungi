@@ -50,7 +50,7 @@ class FaskesFragment : Fragment() {
                 val detailFragment = DetailFaskesFragment.newInstance(faskesAdapter.values?.get(pos))
                 parentFragmentManager
                     .beginTransaction()
-                    .replace(R.id.nav_fragment, detailFragment)
+                    .replace(R.id.list_faskes_page, detailFragment)
                     .addToBackStack(null)
                     .commit()
             }

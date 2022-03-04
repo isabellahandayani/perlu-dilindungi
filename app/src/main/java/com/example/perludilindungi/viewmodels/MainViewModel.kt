@@ -3,6 +3,7 @@ package com.example.perludilindungi.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.perludilindungi.model.*
 import com.example.perludilindungi.model.CheckIn
 import com.example.perludilindungi.model.CheckInResponse
@@ -12,6 +13,7 @@ import com.example.perludilindungi.repository.Repository
 import retrofit2.Call
 import retrofit2.Response
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 
 class MainViewModel constructor(private val repository: Repository) : ViewModel() {
     val list = MutableLiveData<NewsResponse>()
@@ -130,6 +132,15 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
 
                 }
             )
+        }
+    }
+}
+
+class ViewModelFactory constructor(private val repository: Repository) : ViewModelProvider.Factory {
+
+    override  fun <T : ViewModel> create(modelClass: Class<T>) : T {
+        return if(modelClass.isAssignableFrom(MainViewModel::class.java)) MainViewModel(this.repository) as T else {
+            throw IllegalArgumentException("Viewmodel not found")
         }
     }
 }

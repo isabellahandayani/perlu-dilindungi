@@ -12,12 +12,12 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.perludilindungi.R
-import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.databinding.FragmentListFaskesBinding
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.viewmodels.MainViewModel
+import com.example.perludilindungi.viewmodels.ViewModelFactory
 
 class ListFaskesFragment : Fragment() {
     private lateinit var binding: FragmentListFaskesBinding
@@ -140,10 +140,9 @@ class ListFaskesFragment : Fragment() {
     private fun initFragment(faskesList: List<Faskes>) {
         faskesFragment = FaskesFragment.newInstance(faskesList)
 
-        parentFragmentManager
+        childFragmentManager
             .beginTransaction()
             .replace(R.id.faskes_page, faskesFragment)
-            .addToBackStack(null)
             .commit()
     }
 

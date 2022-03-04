@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.perludilindungi.FaskesApplication
 import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
@@ -37,7 +38,6 @@ class DetailFaskesFragment : Fragment() {
         fun get(): Faskes? {
             return data
         }
-
     }
 
 
@@ -46,6 +46,7 @@ class DetailFaskesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentDetailFaskesBinding.inflate(inflater)
 
         val faskes = get()!!
@@ -68,8 +69,6 @@ class DetailFaskesFragment : Fragment() {
         }
 
         binding.btnGmaps.setOnClickListener {
-
-
             try {
                 val latitude = faskes.latitude
                 val longitude = faskes.longitude
@@ -82,8 +81,6 @@ class DetailFaskesFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error, cannot open google maps", Toast.LENGTH_SHORT).show()
             }
         }
-
-
         return binding.root
     }
 
@@ -95,6 +92,5 @@ class DetailFaskesFragment : Fragment() {
         binding.teleponFaskes.setText(faskes.telp)
         binding.statusFaskes.setText(faskes.status)
     }
-
 
 }
