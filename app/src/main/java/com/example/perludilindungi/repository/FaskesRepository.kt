@@ -9,8 +9,7 @@ import com.example.perludilindungi.model.Faskes
 class FaskesRepository(private val faskesDao: FaskesDao) {
 
     val getData: LiveData<List<Faskes>> = faskesDao.getAll()
-//    var exist: Boolean = false
-//    var cnt: LiveData<Int> = null
+    var exist: Boolean = false
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -32,13 +31,7 @@ class FaskesRepository(private val faskesDao: FaskesDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun isExists(id : Int): Int {
-        return faskesDao.count(id)
+    suspend fun isExists(id : Int): Boolean {
+        return faskesDao.count(id) > 0
     }
-
-//    @Suppress("RedundantSuspendModifier")
-//    @WorkerThread
-//    suspend fun count(id : Int): Boolean {
-//        return faskesDao.count(id) > 0
-//    }
 }

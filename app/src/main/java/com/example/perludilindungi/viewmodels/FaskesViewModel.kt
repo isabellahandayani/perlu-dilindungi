@@ -32,17 +32,11 @@ class FaskesViewModel(private val repository: FaskesRepository)  : ViewModel() {
         }
     }
 
-    suspend fun isExists(id: Int): Int {
+    suspend fun isExists(id: Int): Boolean {
         return withContext(Dispatchers.IO) {
             repository.isExists(id)
         }
     }
-
-//    fun count(id: Int){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.count(id)
-//        }
-//    }
 }
 
 class FaskesViewModelFactory(val repository: FaskesRepository) : ViewModelProvider.Factory {

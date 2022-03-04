@@ -63,8 +63,7 @@ class DetailFaskesFragment : Fragment() {
 
         binding.btnBookmark.setOnClickListener {
             viewModel.viewModelScope.launch {
-                val check = viewModel.isExists(faskes.id) > 0
-                Toast.makeText(requireContext(), "AAAAAAAAAA$check", Toast.LENGTH_SHORT).show()
+                val check = viewModel.isExists(faskes.id)
                 if (check) {
                     viewModel.delete(faskes)
                     binding.btnBookmark.setText("+BOOKMARK")
