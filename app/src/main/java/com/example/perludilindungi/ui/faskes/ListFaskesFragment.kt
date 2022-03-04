@@ -48,22 +48,23 @@ class ListFaskesFragment : Fragment() {
 
 
 
-        viewModel.faskesList.observe(viewLifecycleOwner,  { response ->
-            Log.d("FASKES", "onCreate: $response")
-            if(response != null) {
+        viewModel.faskesList.observe(viewLifecycleOwner) { response ->
+            if (response != null) {
                 initFragment(response.data)
-            } else {
-                Toast.makeText(requireContext(), "Province or city not found", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.failMsg.observe(viewLifecycleOwner,  {
+        viewModel.failMsg.observe(viewLifecycleOwner) {
             Log.d("NEWS", "onCreateError: $it")
-        })
+        }
 
         viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
 
         initSpinners()
+
+        binding.buttonSearch?.setOnClickListener {
+            selectProvinceAndCity()
+        }
 
         return(binding.root)
     }
@@ -72,17 +73,17 @@ class ListFaskesFragment : Fragment() {
         // Init province spinner
         provinceNameData.add(UNKNOWN_PROVINCE)
         initCityData()
-        viewModel.provinceList.observe(viewLifecycleOwner, {
-                response ->
+        viewModel.provinceList.observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 val provinceData = response.results
                 for (province in provinceData) {
                     provinceNameData.add(province.key)
                 }
             } else {
-                Toast.makeText(requireContext(), "Province list not found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Province list not found", Toast.LENGTH_SHORT)
+                    .show()
             }
-        })
+        }
 
         // get the province and add to spinner
         viewModel.getProvince()
@@ -104,21 +105,23 @@ class ListFaskesFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedProvinceName = parent?.getItemAtPosition(position).toString()
-                selectProvinceAndCity()
                 if (selectedProvinceName != UNKNOWN_PROVINCE) {
                     viewModel.getCity(selectedProvinceName)
-                    viewModel.cityList.observe(viewLifecycleOwner, {
-                            response ->
+                    viewModel.cityList.observe(viewLifecycleOwner) { response ->
                         if (response != null) {
                             initCityData()
                             val cityData = response.results
                             for (city in cityData) {
                                 cityNameData.add(city.value)
                             }
-                        }else {
-                            Toast.makeText(requireContext(), "City list not found", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "City list not found",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                    })
+                    }
                 }
             }
         }
@@ -126,7 +129,6 @@ class ListFaskesFragment : Fragment() {
         spinnerKota.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedCityName = parent?.getItemAtPosition(position).toString()
-                selectProvinceAndCity()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -153,12 +155,6 @@ class ListFaskesFragment : Fragment() {
     }
 
     private fun selectProvinceAndCity() {
-        if (selectedProvinceName == null) {
-            selectedProvinceName = UNKNOWN_PROVINCE
-        }
-        if (selectedCityName == null) {
-            selectedCityName = UNKNOWN_CITY
-        }
         if (selectedCityName != UNKNOWN_CITY || selectedProvinceName != UNKNOWN_PROVINCE) {
             // init fragment
             viewModel.getFaskes(selectedProvinceName, selectedCityName)
