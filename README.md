@@ -18,7 +18,9 @@ Aplikasi ini merupakan aplikasi android yang bernama Perlu Dilindungi. Aplikasi 
 
 ### Library Yang Digunakan
 1. Retrofit Service
+Library retrofit digunakan untuk mengambil data news COVID-19 dari API. Library ini juga telah meng-handle parsing terhadap response dari API sehingga mudah untuk digunakan. Library ini juga akan mengubah response API yang diperoleh menjadi object sesuai dengan data class yang telah didefinisikan
 2. Room
+Library room menfasilitasi developer untuk mengakses database SQLite dengan mudah. Room juga bersifat ORM sehingga developer bisa memperoleh hasil query berbentuk objek yang mudah untuk digunakan
 3. Code scanner
 4. Google Play Location Service
 
