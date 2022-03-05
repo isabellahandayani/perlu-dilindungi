@@ -17,13 +17,15 @@ Aplikasi ini merupakan aplikasi android yang bernama Perlu Dilindungi. Aplikasi 
 8. Pada bagian QR Scanner yang diakses dengan cara tap floating button, pengguna dapat scan kode QR dan pengguna akan melakukan "check-in". Di dalamnya, terdapat info sushu kamar di sekitar pengguna jika terdapat sensor suhu pada device yang digunakan, jika tidak maka tidak akan ada informasi suhunya.
 
 ### Library Yang Digunakan
-1. Retrofit Service
+1. Retrofit Service 
 Library retrofit digunakan untuk mengambil data news COVID-19 dari API. Library ini juga telah meng-handle parsing terhadap response dari API sehingga mudah untuk digunakan. Library ini juga akan mengubah response API yang diperoleh menjadi object sesuai dengan data class yang telah didefinisikan
-2. Room
+2. Room 
 Library room menfasilitasi developer untuk mengakses database SQLite dengan mudah. Room juga bersifat ORM sehingga developer bisa memperoleh hasil query berbentuk objek yang mudah untuk digunakan
-3. Code scanner
+3. Code scanner 
+Source : [https://github.com/yuriy-budiyev/code-scanner]
+Library code scanner memberikan fitur scan untuk QR code sehingga tidak perlu lagi mengimplementasikan algoritma untuk melakukan scan terhadap QR code. Library ini juga menyediakan akses terhadap fitur kamera seperti tombol fokus dan tombol flash.     
 4. Google Play Location Service
-
+Library ini berfungsi untuk memberikan posisi latitude dan longitude dari device. Library ini dipilih karena memiliki akurasi lebih tinggi dibandingkan library location yang merupakan bawaan Android. Library ini digunakan saat pengguna melakukan check in dan ketika pengguna mencari faskes terdekat.
 ### Screenshot Aplikasi
 ![1](./screenshots/1.jpg)
 ![2](./screenshots/2.jpg)
