@@ -150,8 +150,6 @@ class ListFaskesFragment : Fragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedCityName = UNKNOWN_CITY
-                spinnerKota.setSelection(0)
                 selectedProvinceName = parent?.getItemAtPosition(position).toString()
                 if (selectedProvinceName != UNKNOWN_PROVINCE) {
                     viewModel.getCity(selectedProvinceName)
@@ -162,6 +160,8 @@ class ListFaskesFragment : Fragment() {
                             for (city in cityData) {
                                 cityNameData.add(city.value)
                             }
+                            selectedCityName = UNKNOWN_CITY
+                            spinnerKota.setSelection(0)
                         } else {
                             Toast.makeText(
                                 requireContext(),
