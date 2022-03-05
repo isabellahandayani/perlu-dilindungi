@@ -47,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Faskes"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,27 +60,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Kode Faskes" />
+                android:text="Kode Faskes"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/jenisFaskes"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Jenis Faskes" />
+                android:text="Jenis Faskes"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/alamatFaskes"
             android:layout_width="match_parent"
             android:layout_height="38dp"
-            android:text="Alamat Faskes" />
+            android:text="Alamat Faskes"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/teleponFaskes"
             android:layout_width="match_parent"
             android:layout_height="39dp"
-            android:text="Telpon Faskes" />
+            android:text="Telpon Faskes"
+            android:textColor="@color/black"/>
     </LinearLayout>
 
     <TextView
@@ -93,6 +98,7 @@
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:textColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
