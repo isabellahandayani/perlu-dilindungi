@@ -69,6 +69,8 @@ class DetailFaskesFragment : Fragment() {
             binding.statusVaksinCheck.setImageResource(R.drawable.ic_red_x)
         }
 
+        binding.kodeFaskes.setText("Kode: ${binding.kodeFaskes.text}")
+
         binding.btnBookmark.setOnClickListener {
             viewModel.viewModelScope.launch {
                 val check = viewModel.isExists(faskes.id)

@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.809" />
+        app:layout_constraintVertical_bias="0.809"
+        android:backgroundTint="@color/fuschia_100"/>
 
     <Button
         android:id="@+id/btn_gmaps"
@@ -29,7 +30,8 @@
         android:text="Google Maps"
         app:layout_constraintBottom_toTopOf="@+id/btn_bookmark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/iris_80"/>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -46,7 +48,9 @@
             android:layout_height="wrap_content"
             android:text="Nama Faskes"
             android:textSize="34sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +63,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Kode Faskes"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"/>
 
             <TextView
                 android:id="@+id/jenisFaskes"
@@ -75,14 +80,16 @@
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:text="Alamat Faskes"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"/>
 
         <TextView
             android:id="@+id/teleponFaskes"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:text="Telpon Faskes"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"/>
     </LinearLayout>
 
     <TextView
