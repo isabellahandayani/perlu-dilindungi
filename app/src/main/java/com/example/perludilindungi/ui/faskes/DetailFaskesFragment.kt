@@ -16,12 +16,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.perludilindungi.FaskesApplication
+import com.example.perludilindungi.R
 import com.example.perludilindungi.databinding.FragmentDetailFaskesBinding
 import com.example.perludilindungi.model.Faskes
 import com.example.perludilindungi.viewmodels.FaskesViewModel
 import com.example.perludilindungi.viewmodels.FaskesViewModelFactory
 import kotlinx.coroutines.launch
 import java.lang.NullPointerException
+
 
 class DetailFaskesFragment : Fragment() {
     private lateinit var binding: FragmentDetailFaskesBinding
@@ -61,10 +63,10 @@ class DetailFaskesFragment : Fragment() {
 
         if (binding.statusFaskes.text == "Siap Vaksinasi") {
             // R.drawable.ic_green_checkmark_circle
-            binding.statusVaksinCheck.setImageResource()
+            binding.statusVaksinCheck.setImageResource(R.drawable.ic_green_checkmark_circle)
         }else {
             // R.drawable.ic_red_x
-            binding.statusVaksinCheck.setImageResource()
+            binding.statusVaksinCheck.setImageResource(R.drawable.ic_red_x)
         }
 
         binding.btnBookmark.setOnClickListener {

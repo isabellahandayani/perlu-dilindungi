@@ -104,8 +104,14 @@
         android:id="@+id/statusVaksinCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="255dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="143dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintBottom_toTopOf="@+id/statusFaskes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
