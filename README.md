@@ -23,5 +23,5 @@ Aplikasi ini merupakan aplikasi android yang bernama Perlu Dilindungi. Aplikasi 
 4. Google Play Location Service
 
 ### Screenshot Aplikasi
-
+![1](./screenshots/1.jpg)
 ### Pembagian Kerja
