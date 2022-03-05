@@ -79,9 +79,11 @@ class ListFaskesFragment : Fragment() {
         initSpinners()
 
         binding.buttonSearch?.setOnClickListener {
-            fetchLocation()
-            if (latitude != null && longitude != null) {
-                selectProvinceAndCity(true, latitude!!, longitude!!)
+            if (selectedProvinceName != UNKNOWN_PROVINCE && selectedCityName != UNKNOWN_CITY) {
+                fetchLocation()
+                if (latitude != null && longitude != null) {
+                    selectProvinceAndCity(true, latitude!!, longitude!!)
+                }
             }
         }
 
@@ -148,6 +150,8 @@ class ListFaskesFragment : Fragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedCityName = UNKNOWN_CITY
+                spinnerKota.setSelection(0)
                 selectedProvinceName = parent?.getItemAtPosition(position).toString()
                 if (selectedProvinceName != UNKNOWN_PROVINCE) {
                     viewModel.getCity(selectedProvinceName)
