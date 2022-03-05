@@ -1,5 +1,7 @@
 package com.example.perludilindungi.adapter
 
+import android.content.Context
+import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +11,10 @@ import com.example.perludilindungi.model.Faskes
 class FaskesAdapter(
     val values: List<Faskes>?
 ) : RecyclerView.Adapter<FaskesAdapter.FaskesViewHolder>() {
+
+    private val rumahSakit = "RUMAH SAKIT"
+    private val puskesmas = "PUSKESMAS"
+    private val klinik = "KLINIK"
 
     private lateinit var listener: onItemClickListener
 
@@ -51,6 +57,14 @@ class FaskesAdapter(
             holder.binding.faskesPhone.text = faskesData.telp
             holder.binding.faskesCode.text = faskesData.kode
             holder.binding.faskesType.text = faskesData.jenis_faskes
+
+            if (faskesData.jenis_faskes == rumahSakit) {
+                holder.binding.faskesType.setTextColor(Color.parseColor("#FF6200EE"))
+            }else if (faskesData.jenis_faskes == klinik) {
+                holder.binding.faskesType.setTextColor(Color.parseColor("#7879F1"))
+            }else if (faskesData.jenis_faskes == puskesmas) {
+                holder.binding.faskesType.setTextColor(Color.parseColor("#EF5DA8"))
+            }
         }
     }
 
