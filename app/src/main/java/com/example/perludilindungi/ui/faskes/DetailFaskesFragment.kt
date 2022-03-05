@@ -1,6 +1,7 @@
 
 package com.example.perludilindungi.ui.faskes
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.SQLException
 import android.database.sqlite.SQLiteConstraintException
@@ -30,6 +31,9 @@ class DetailFaskesFragment : Fragment() {
     private val viewModel: FaskesViewModel by viewModels {
         FaskesViewModelFactory((requireActivity().application as FaskesApplication).repository)
     }
+    private val rumahSakit = "RUMAH SAKIT"
+    private val puskesmas = "PUSKESMAS"
+    private val klinik = "KLINIK"
 
     companion object {
         private var data: Faskes? = null
@@ -45,6 +49,7 @@ class DetailFaskesFragment : Fragment() {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,6 +72,22 @@ class DetailFaskesFragment : Fragment() {
         }else {
             // R.drawable.ic_red_x
             binding.statusVaksinCheck.setImageResource(R.drawable.ic_red_x)
+        }
+
+        val jenisFaskes = binding.jenisFaskes
+        if (jenisFaskes.text == puskesmas) {
+            jenisFaskes.setTextColor(R.color.fuschia_100)
+        }else if (jenisFaskes.text == rumahSakit) {
+            jenisFaskes.setTextColor(R.color.purple_200)
+        }else if (jenisFaskes.text == klinik) {
+            jenisFaskes.setTextColor(R.color.iris_80)
+        }
+
+        viewModel.viewModelScope.launch {
+            val check = viewModel.isExists(faskes.id)
+            if (check) {
+                binding.btnBookmark.setText("-UNBOOKMARK")
+            }
         }
 
         binding.kodeFaskes.setText("Kode: ${binding.kodeFaskes.text}")
