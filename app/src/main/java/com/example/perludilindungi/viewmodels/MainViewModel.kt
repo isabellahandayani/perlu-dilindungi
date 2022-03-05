@@ -71,6 +71,10 @@ class MainViewModel constructor(private val repository: Repository) : ViewModel(
                                     responseBody.data = sortedFaskes.take(5)
                                 }
                             }
+                        }else {
+                            if (responseBody != null) {
+                                responseBody.data = responseBody.data.take(5)
+                            }
                         }
                         faskesList.postValue(responseBody!!)
                     }

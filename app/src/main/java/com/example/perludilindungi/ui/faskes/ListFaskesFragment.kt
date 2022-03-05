@@ -69,8 +69,13 @@ class ListFaskesFragment : Fragment() {
             Log.d("NEWS", "onCreateError: $it")
         }
 
-        viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
-
+        if (latitude!=null && longitude!=null) {
+            viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT", true,
+                latitude!!, longitude!!
+            )
+        }else{
+            viewModel.getFaskes("DKI JAKARTA", "KOTA ADM. JAKARTA PUSAT")
+        }
         initSpinners()
 
         binding.buttonSearch?.setOnClickListener {
