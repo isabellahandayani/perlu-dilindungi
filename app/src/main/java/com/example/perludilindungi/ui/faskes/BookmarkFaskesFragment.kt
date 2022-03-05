@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.viewModels
 import com.example.perludilindungi.FaskesApplication
 import com.example.perludilindungi.R
@@ -27,7 +28,6 @@ class BookmarkFaskesFragment : Fragment() {
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBookmarkFaskesBinding.inflate(inflater)
-
         viewModel.faskesList.observe(viewLifecycleOwner,  { response ->
             Log.d("FASKES", "onChange: $response")
             if(response != null) {
@@ -40,12 +40,11 @@ class BookmarkFaskesFragment : Fragment() {
 
 
     private fun initFragment(faskesList: List<Faskes>) {
-        faskesFragment = FaskesFragment.newInstance(faskesList)
+        faskesFragment = FaskesFragment.newInstance(faskesList, 2)
 
-        parentFragmentManager
+        childFragmentManager
             .beginTransaction()
-            .replace(R.id.bookmark_page, faskesFragment)
-            .addToBackStack(null)
+            .replace(R.id.list_faskes_page, faskesFragment)
             .commit()
     }
 

@@ -21,15 +21,21 @@ class FaskesFragment : Fragment() {
 
     companion object {
         var faskesData: List<Faskes>? = null
+        var typePage: Int? = null
 
-        fun newInstance(dataset: List<Faskes>) : FaskesFragment {
+        fun newInstance(dataset: List<Faskes>, type: Int) : FaskesFragment {
             val faskesFragment = FaskesFragment()
             faskesData = dataset
+            typePage = type
             return faskesFragment
         }
 
         fun get(): List<Faskes>? {
             return faskesData
+        }
+
+        fun getPage(): Int? {
+            return typePage
         }
     }
 
@@ -48,11 +54,20 @@ class FaskesFragment : Fragment() {
         faskesAdapter.setOnItemClickListener(object: FaskesAdapter.onItemClickListener{
             override fun onItemClick(pos: Int) {
                 val detailFragment = DetailFaskesFragment.newInstance(faskesAdapter.values?.get(pos))
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.nav_fragment, detailFragment)
-                    .addToBackStack(null)
-                    .commit()
+
+                when(getPage()) {
+                    1 ->
+                        parentFragment?.parentFragmentManager
+                        ?.beginTransaction()
+                        ?.replace(R.id.nav_fragment, detailFragment)
+                        ?.addToBackStack(null)
+                        ?.commit()
+                    else -> parentFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.list_faskes_page, detailFragment)
+                            .addToBackStack(null)
+                            .commit()
+                }
             }
 
         })

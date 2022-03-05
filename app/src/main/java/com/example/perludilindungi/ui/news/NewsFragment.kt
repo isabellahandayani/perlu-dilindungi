@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.perludilindungi.R
-import com.example.perludilindungi.ViewModelFactory
 import com.example.perludilindungi.adapter.NewsAdapter
 import com.example.perludilindungi.databinding.NewsBinding
 import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.viewmodels.MainViewModel
+import com.example.perludilindungi.viewmodels.ViewModelFactory
 
 class NewsFragment : Fragment() {
     private lateinit var binding: NewsBinding

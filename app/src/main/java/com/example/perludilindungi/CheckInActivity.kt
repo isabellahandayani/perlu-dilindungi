@@ -23,6 +23,7 @@ import com.example.perludilindungi.network.RetrofitService
 import com.example.perludilindungi.repository.Repository
 import com.example.perludilindungi.services.TemperatureService
 import com.example.perludilindungi.viewmodels.MainViewModel
+import com.example.perludilindungi.viewmodels.ViewModelFactory
 import com.google.android.gms.location.*
 import com.google.zxing.BarcodeFormat
 
