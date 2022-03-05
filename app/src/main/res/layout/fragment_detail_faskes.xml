@@ -26,12 +26,10 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="144dp"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="85dp"
         android:text="Google Maps"
         app:layout_constraintBottom_toTopOf="@+id/btn_bookmark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusFaskes" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -93,12 +91,21 @@
         android:layout_height="55dp"
         android:layout_marginEnd="87dp"
         android:layout_marginStart="86dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="196dp"
         android:text="Siap Vaksin/Ga"
+        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <ImageView
+        android:id="@+id/statusVaksinCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="255dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

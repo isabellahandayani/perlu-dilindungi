@@ -59,6 +59,14 @@ class DetailFaskesFragment : Fragment() {
             Toast.makeText(requireContext(), "Faskes display error", Toast.LENGTH_SHORT).show()
         }
 
+        if (binding.statusFaskes.text == "Siap Vaksinasi") {
+            // R.drawable.ic_green_checkmark_circle
+            binding.statusVaksinCheck.setImageResource()
+        }else {
+            // R.drawable.ic_red_x
+            binding.statusVaksinCheck.setImageResource()
+        }
+
         binding.btnBookmark.setOnClickListener {
             viewModel.viewModelScope.launch {
                 val check = viewModel.isExists(faskes.id)

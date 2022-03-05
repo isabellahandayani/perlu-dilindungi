@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documents/Perkuliahan/Kuliah_Semester_6/PBD/if3210-2022-android-36/app/src/main/res/drawable/ic_green_checkmark_circle.xml" value="0.114" />
+        <entry key="..\:/Documents/Perkuliahan/Kuliah_Semester_6/PBD/if3210-2022-android-36/app/src/main/res/drawable/ic_red_x.xml" value="0.114" />
         <entry key="..\:/Documents/Perkuliahan/Kuliah_Semester_6/PBD/if3210-2022-android-36/app/src/main/res/drawable/list_faskes.xml" value="0.1" />
         <entry key="..\:/Documents/Perkuliahan/Kuliah_Semester_6/PBD/if3210-2022-android-36/app/src/main/res/drawable/news.xml" value="0.1" />
         <entry key="..\:/Documents/Perkuliahan/Kuliah_Semester_6/PBD/if3210-2022-android-36/app/src/main/res/layout-land/fragment_list_faskes.xml" value="0.22" />
